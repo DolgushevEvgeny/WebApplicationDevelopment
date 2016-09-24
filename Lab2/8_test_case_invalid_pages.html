@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head profile="http://selenium-ide.openqa.org/profiles/test-case">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="selenium.base" href="http://localhost:8080/" />
+<title>8_test_case_invalid_pages</title>
+</head>
+<body>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">8_test_case_invalid_pages</td></tr>
+</thead><tbody>
+<tr>
+	<td>open</td>
+	<td>/First/basicServlet</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>name=surname</td>
+	<td>мак-каммон</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>name=name</td>
+	<td>боб</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>name=bookTitle</td>
+	<td>они жаждут</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>name=publishYear</td>
+	<td>1999-8-12</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>name=pages</td>
+	<td>-9</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>css=input[type=&quot;submit&quot;]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>css=#status</td>
+	<td>Ошибка: неверное кол-во страниц.</td>
+</tr>
+<tr>
+	<td>open</td>
+	<td>/First/basicServlet</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>name=surname</td>
+	<td>мак-каммон</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>name=name</td>
+	<td>боб</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>name=bookTitle</td>
+	<td>они жаждут</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>name=publishYear</td>
+	<td>1999-8-12</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>name=pages</td>
+	<td>-99999999</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>css=input[type=&quot;submit&quot;]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>css=#status</td>
+	<td>Ошибка: неверное кол-во страниц.</td>
+</tr>
+<tr>
+	<td>open</td>
+	<td>/First/basicServlet</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>name=surname</td>
+	<td>мак-каммон</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>name=name</td>
+	<td>боб</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>name=bookTitle</td>
+	<td>они жаждут</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>name=publishYear</td>
+	<td>1999-8-12</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>name=pages</td>
+	<td>0</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>css=input[type=&quot;submit&quot;]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>css=#status</td>
+	<td>Ошибка: неверное кол-во страниц.</td>
+</tr>
+<tr>
+	<td>open</td>
+	<td>/First/basicServlet</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>name=surname</td>
+	<td>мак-каммон</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>name=name</td>
+	<td>боб</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>name=bookTitle</td>
+	<td>они жаждут</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>name=publishYear</td>
+	<td>1999-8-12</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>name=pages</td>
+	<td>1</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>css=input[type=&quot;submit&quot;]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>css=#status</td>
+	<td>Ошибка: неверное кол-во страниц.</td>
+</tr>
+</tbody></table>
+</body>
+</html>
