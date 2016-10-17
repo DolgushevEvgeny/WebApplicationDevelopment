@@ -9,7 +9,8 @@ public class Book {
     private Date publishYear = null;
     private Integer pages = 0;
 
-    public Book(String authorSurname, String authorName, String title, Date publishYear, Integer pages) {
+    public Book(final String authorSurname, final String authorName, final String title,
+                final Date publishYear, final Integer pages) {
         this.authorSurname = authorSurname;
         this.authorName = authorName;
         this.title = title;
@@ -17,23 +18,23 @@ public class Book {
         this.pages = pages;
     }
 
-    public String getAuthorSurname(){
+    public final String getAuthorSurname(){
         return this.authorSurname;
     }
 
-    public String getAuthorName(){
+    public final String getAuthorName(){
         return this.authorName;
     }
 
-    public String getTitle(){
+    public final String getTitle(){
         return this.title;
     }
 
-    public Date getPublishYear(){
+    public final Date getPublishYear(){
         return this.publishYear;
     }
 
-    public Integer getPages(){
+    public final Integer getPages(){
         return this.pages;
     }
 }

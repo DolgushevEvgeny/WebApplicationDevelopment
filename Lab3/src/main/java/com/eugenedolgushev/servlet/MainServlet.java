@@ -1,11 +1,9 @@
 package com.eugenedolgushev.servlet;
 
-import com.eugenedolgushev.servlet.controllers.Controller;
+import com.eugenedolgushev.servlet.models.Book;
 import com.eugenedolgushev.servlet.models.Books;
-import com.eugenedolgushev.servlet.view.View;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.ArrayList;
 
 import javax.servlet.ServletException;
@@ -16,21 +14,17 @@ import javax.servlet.http.HttpServletResponse;
 public class MainServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
     private Books books = null;
-    private Controller controller = null;
-    private View view = null;
 
     public MainServlet() throws IOException {
         System.out.println("servlet create");
         books = new Books();
-        controller = new Controller();
-        view = new View();
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         response.setContentType("text/html;charset=utf-8");
-        books = controller.getFromDB();
-        request.setAttribute("myBooks", books.getBooks());
+        ArrayList<Book> books = this.books.getBooks();
+        request.setAttribute("myBooks", books);
         request.getRequestDispatcher("index.jsp").forward(request, response);
     }
 
@@ -43,8 +37,8 @@ public class MainServlet extends HttpServlet {
         String publishYear = request.getParameter("publishYear");
         String pages = request.getParameter("pages");
 
-        books = controller.execute(authorSurname, authorName, title, publishYear, pages, books);
-
+        String state = books.addBook(authorSurname, authorName, title, publishYear, pages);
+        request.setAttribute("state", state);
         doGet(request, response);
     }
 }
