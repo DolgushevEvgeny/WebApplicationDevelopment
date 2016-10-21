@@ -14,7 +14,7 @@ public class Book {
         this.authorSurname = theAuthorSurname;
         this.authorName = theAuthorName;
         this.title = theTitle;
-        this.publishYear = thePublishYear;
+        this.publishYear = new Date(thePublishYear.getTime());
         this.pages = thePages;
     }
 
@@ -31,7 +31,7 @@ public class Book {
     }
 
     public final Date getPublishYear(){
-        return this.publishYear;
+        return (Date)this.publishYear.clone();
     }
 
     public final Integer getPages(){

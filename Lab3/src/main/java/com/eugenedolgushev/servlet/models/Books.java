@@ -21,22 +21,28 @@ public class Books {
     private static final Integer TITLEINDEX = 4;
     private static final Integer DATEINDEX = 5;
     private static final Integer PAGESINDEX = 6;
+    private static final String DILIMITER = "', '";
+    private static final String ERROR_INVALIDINPUT = "Invalid input";
+    private static final String ERROR_UNCORRECTDATA = "Некорректные данные!";
+    private static final String SUCCESS_MESSAGE = "Книга успешно добавлена.";
 
     public Books() throws IOException {
         connection = Controller.getConnection();
     }
 
     public final void addBookToDB(Book book) {
-        String query = "insert into books (surname, name, title, releaseDate, pages) values (";
-        query = query + "'" + book.getAuthorSurname() + "', '" + book.getAuthorName() + "', '" +
-                book.getTitle() + "', '" + new SimpleDateFormat("yyyy-MM-dd").format(book.getPublishYear()) + "', '" + book.getPages() + "');";
+        String query = "insert into books (surname, name, title, releaseDate, pages) values (" +
+        "'" + book.getAuthorSurname() + DILIMITER + book.getAuthorName() + DILIMITER +
+        book.getTitle() + DILIMITER + new SimpleDateFormat("yyyy-MM-dd").format(book.getPublishYear())
+        + DILIMITER + book.getPages() + "');";
+
+        Statement statement = null;
         try {
-            Statement statement = connection.createStatement();
+            statement = connection.createStatement();
             statement.executeUpdate(query);
             statement.close();
         } catch (SQLException e) {
             log.severe(e.getMessage());
-            e.printStackTrace();
         }
     }
 
@@ -48,33 +54,33 @@ public class Books {
         String year = publishYear.trim();
         String pages = pagesCount.trim();
         if (surname.isEmpty() || name.isEmpty() || title.isEmpty()) {
-            log.warning("Invalid input");
-            return "Некорректные данные!";
+            log.warning(ERROR_INVALIDINPUT);
+            return ERROR_UNCORRECTDATA;
         }
         if (year.isEmpty() || pages.isEmpty()) {
-            log.warning("Invalid input");
-            return "Некорректные данные!";
+            log.warning(ERROR_INVALIDINPUT);
+            return ERROR_UNCORRECTDATA;
         }
 
         Integer bookPages;
         try {
             bookPages = Integer.parseInt(pages);
         } catch(Exception e) {
-            log.warning("Invalid input");
-            return "Некорректные данные!";
+            log.warning(ERROR_INVALIDINPUT);
+            return ERROR_UNCORRECTDATA;
         }
 
         Date bookYear;
         try {
             bookYear = new SimpleDateFormat("yyyy-MM-dd").parse(year);
         } catch(ParseException e) {
-            log.warning("Invalid input");
-            return "Некорректные данные!";
+            log.warning(ERROR_INVALIDINPUT);
+            return ERROR_UNCORRECTDATA;
         }
 
         Book newBook = new Book(surname, name, title, bookYear, bookPages);
         addBookToDB(newBook);
-        return "Книга успешно добавлена.";
+        return SUCCESS_MESSAGE;
     }
 
     public final ArrayList<Book> getBooks(){
@@ -96,7 +102,6 @@ public class Books {
             statement.close();
         } catch (SQLException e) {
             log.severe(e.getMessage());
-            e.printStackTrace();
         }
 
         return books;

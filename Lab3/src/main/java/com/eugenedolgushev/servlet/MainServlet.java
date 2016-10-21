@@ -16,7 +16,6 @@ public class MainServlet extends HttpServlet {
     private Books books = null;
 
     public MainServlet() throws IOException {
-        System.out.println("servlet create");
         books = new Books();
     }
 

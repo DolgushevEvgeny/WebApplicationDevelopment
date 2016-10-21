@@ -30,10 +30,8 @@ public class Controller {
             Class.forName("com.mysql.jdbc.Driver");
             connection = DriverManager.getConnection(url, user, password);
         } catch(SQLException e) {
-            e.printStackTrace();
             log.severe(e.getMessage());
         } catch(ClassNotFoundException e) {
-            e.printStackTrace();
             log.severe(e.getMessage());
         }
 
@@ -47,7 +45,6 @@ public class Controller {
         try {
             toClose.close();
         } catch(SQLException e) {
-            e.printStackTrace();
             log.severe(e.getMessage());
         }
     }
