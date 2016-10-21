@@ -23,8 +23,8 @@ public class MainServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         response.setContentType("text/html;charset=utf-8");
-        ArrayList<Book> books = this.books.getBooks();
-        request.setAttribute("myBooks", books);
+        ArrayList<Book> receivedBooks = this.books.getBooks();
+        request.setAttribute("myBooks", receivedBooks);
         request.getRequestDispatcher("index.jsp").forward(request, response);
     }
 

@@ -9,13 +9,13 @@ public class Book {
     private Date publishYear = null;
     private Integer pages = 0;
 
-    public Book(final String authorSurname, final String authorName, final String title,
-                final Date publishYear, final Integer pages) {
-        this.authorSurname = authorSurname;
-        this.authorName = authorName;
-        this.title = title;
-        this.publishYear = publishYear;
-        this.pages = pages;
+    public Book(final String theAuthorSurname, final String theAuthorName, final String theTitle,
+                final Date thePublishYear, final Integer thePages) {
+        this.authorSurname = theAuthorSurname;
+        this.authorName = theAuthorName;
+        this.title = theTitle;
+        this.publishYear = thePublishYear;
+        this.pages = thePages;
     }
 
     public final String getAuthorSurname(){
