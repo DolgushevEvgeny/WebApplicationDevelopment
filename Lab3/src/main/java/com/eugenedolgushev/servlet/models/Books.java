@@ -1,16 +1,14 @@
 package com.eugenedolgushev.servlet.models;
 
-import com.eugenedolgushev.servlet.controllers.Controller;
+import com.eugenedolgushev.servlet.controllers.DBConnection;
 
 import java.io.IOException;
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.logging.Logger;
 
 public class Books {
@@ -21,26 +19,26 @@ public class Books {
     private static final Integer TITLEINDEX = 4;
     private static final Integer DATEINDEX = 5;
     private static final Integer PAGESINDEX = 6;
-    private static final String DILIMITER = "', '";
     private static final String ERROR_INVALIDINPUT = "Invalid input";
     private static final String ERROR_UNCORRECTDATA = "Некорректные данные!";
     private static final String SUCCESS_MESSAGE = "Книга успешно добавлена.";
 
     public Books() throws IOException {
-        connection = Controller.getConnection();
+        connection = DBConnection.getConnection();
     }
 
     public final void addBookToDB(Book book) {
-        String query = "insert into books (surname, name, title, releaseDate, pages) values (" +
-        "'" + book.getAuthorSurname() + DILIMITER + book.getAuthorName() + DILIMITER +
-        book.getTitle() + DILIMITER + new SimpleDateFormat("yyyy-MM-dd").format(book.getPublishYear())
-        + DILIMITER + book.getPages() + "');";
-
-        Statement statement = null;
+        String query = "insert into books (surname, name, title, releaseDate, pages) values (?,?,?,?,?)";
+        PreparedStatement preparedStatement = null;
         try {
-            statement = connection.createStatement();
-            statement.executeUpdate(query);
-            statement.close();
+            preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setString(SURNAMEINDEX-1, book.getAuthorSurname());
+            preparedStatement.setString(NAMEINDEX-1, book.getAuthorName());
+            preparedStatement.setString(TITLEINDEX-1, book.getTitle());
+            preparedStatement.setString(DATEINDEX-1, new SimpleDateFormat("yyyy-MM-dd").format(book.getPublishYear()));
+            preparedStatement.setInt(PAGESINDEX-1, book.getPages());
+            preparedStatement.executeUpdate();
+            preparedStatement.close();
         } catch (SQLException e) {
             log.severe(e.getMessage());
         }
@@ -83,12 +81,14 @@ public class Books {
         return SUCCESS_MESSAGE;
     }
 
-    public final ArrayList<Book> getBooks(){
+    public final List<Book> getBooks(){
         String query = "select id, surname, name, title, releaseDate, pages from books";
         ArrayList<Book> books = new ArrayList<Book>();
+        ResultSet resultSet = null;
+        Statement statement = null;
         try {
-            Statement statement = connection.createStatement();
-            ResultSet resultSet = statement.executeQuery(query);
+            statement = connection.createStatement();
+            resultSet = statement.executeQuery(query);
             while (resultSet.next()) {
                 String authorSurname = resultSet.getString(SURNAMEINDEX);
                 String authorName = resultSet.getString(NAMEINDEX);
@@ -98,10 +98,24 @@ public class Books {
                 Book newBook = new Book(authorSurname, authorName, title, publishYear, pages);
                 books.add(newBook);
             }
-            resultSet.close();
-            statement.close();
+
         } catch (SQLException e) {
             log.severe(e.getMessage());
+        } finally {
+            if (resultSet != null) {
+                try {
+                    resultSet.close();
+                } catch (SQLException e) {
+                    log.severe(e.getMessage());
+                }
+            }
+            if (statement != null) {
+                try {
+                    statement.close();
+                } catch (SQLException e) {
+                    log.severe(e.getMessage());
+                }
+            }
         }
 
         return books;

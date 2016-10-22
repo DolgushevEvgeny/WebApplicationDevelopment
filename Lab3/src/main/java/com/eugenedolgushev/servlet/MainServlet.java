@@ -4,7 +4,7 @@ import com.eugenedolgushev.servlet.models.Book;
 import com.eugenedolgushev.servlet.models.Books;
 
 import java.io.IOException;
-import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -19,15 +19,15 @@ public class MainServlet extends HttpServlet {
         books = new Books();
     }
 
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected final void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         response.setContentType("text/html;charset=utf-8");
-        ArrayList<Book> receivedBooks = this.books.getBooks();
+        List<Book> receivedBooks = this.books.getBooks();
         request.setAttribute("myBooks", receivedBooks);
         request.getRequestDispatcher("index.jsp").forward(request, response);
     }
 
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected final void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         request.setCharacterEncoding("UTF-8");
         String authorSurname = request.getParameter("surname");

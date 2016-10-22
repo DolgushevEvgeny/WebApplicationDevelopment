@@ -14,8 +14,6 @@
         <label>Страницы</label><input name="pages" type="text"><br>
         <input value="Отправить" type="submit">
     </form>
-    <div id="status">
-    </div>
     <table>
         <tr>
             <th>Фамилия</th>
