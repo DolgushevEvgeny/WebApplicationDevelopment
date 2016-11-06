@@ -1,5 +1,7 @@
 package com.eugenedolgushev.servlet.models;
 
+import com.sun.istack.internal.NotNull;
+
 import java.util.Date;
 
 public class Book {
@@ -8,6 +10,11 @@ public class Book {
     private String title = "";
     private Date publishYear = null;
     private Integer pages = 0;
+
+    private static final String TABLEROWOPEN = "<tr>";
+    private static final String TABLEROWCLOSE = "</tr>";
+    private static final String TABLEDATAOPEN = "<td>";
+    private static final String TABLEDATACLOSE = "</td>";
 
     public Book(final String theAuthorSurname, final String theAuthorName, final String theTitle,
                 final Date thePublishYear, final Integer thePages) {
@@ -36,5 +43,28 @@ public class Book {
 
     public final Integer getPages(){
         return this.pages;
+    }
+
+    @NotNull
+    public final String toHTML() {
+        StringBuilder result = new StringBuilder();
+        result.append(TABLEROWOPEN);
+        result.append(TABLEDATAOPEN);
+        result.append(this.authorSurname);
+        result.append(TABLEDATACLOSE);
+        result.append(TABLEDATAOPEN);
+        result.append(this.authorName);
+        result.append(TABLEDATACLOSE);
+        result.append(TABLEDATAOPEN);
+        result.append(this.title);
+        result.append(TABLEDATACLOSE);
+        result.append(TABLEDATAOPEN);
+        result.append(getPublishYear());
+        result.append(TABLEDATACLOSE);
+        result.append(TABLEDATAOPEN);
+        result.append(this.pages);
+        result.append(TABLEDATACLOSE);
+        result.append(TABLEROWCLOSE);
+        return result.toString();
     }
 }

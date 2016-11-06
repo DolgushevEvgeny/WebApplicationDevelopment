@@ -2,9 +2,11 @@ package com.eugenedolgushev.servlet;
 
 import com.eugenedolgushev.servlet.models.Book;
 import com.eugenedolgushev.servlet.models.Books;
+import com.eugenedolgushev.servlet.template.Templator;
 
 import java.io.IOException;
-import java.util.List;
+import java.util.ArrayList;
+import java.io.PrintWriter;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -15,6 +17,8 @@ public class MainServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
     private Books books = null;
 
+    private static final String SERVLETSTATE = "state";
+
     public MainServlet() throws IOException {
         books = new Books();
     }
@@ -22,9 +26,22 @@ public class MainServlet extends HttpServlet {
     protected final void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         response.setContentType("text/html;charset=utf-8");
-        List<Book> receivedBooks = this.books.getBooks();
-        request.setAttribute("myBooks", receivedBooks);
-        request.getRequestDispatcher("index.jsp").forward(request, response);
+        ArrayList<Book> receivedBooks = this.books.getBooks();
+
+        Templator templator = new Templator("C:\\Users\\EugeneDolgushev\\IdeaProjects\\servlet_lab3\\src\\main\\java\\com\\eugenedolgushev\\servlet\\template\\template.html");
+        templator.setBooksByTag("myBooks", receivedBooks);
+        if (request.getAttribute(SERVLETSTATE) != null) {
+            templator.setValueByTag(SERVLETSTATE, (String)request.getAttribute(SERVLETSTATE));
+        } else {
+            templator.setValueByTag(SERVLETSTATE, "");
+        }
+
+        PrintWriter writer = response.getWriter();
+        writer.println(templator.getHTML());
+        writer.close();
+//        writer(templator.getHTML());
+//        request.setAttribute("myBooks", receivedBooks);
+//        request.getRequestDispatcher("index.jsp").forward(request, response);
     }
 
     protected final void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -37,7 +54,8 @@ public class MainServlet extends HttpServlet {
         String pages = request.getParameter("pages");
 
         String state = books.addBook(authorSurname, authorName, title, publishYear, pages);
-        request.setAttribute("state", state);
+
+        request.setAttribute(SERVLETSTATE, state);
         doGet(request, response);
     }
 }

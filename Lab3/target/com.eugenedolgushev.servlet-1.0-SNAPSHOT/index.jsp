@@ -23,15 +23,15 @@
             <th>Страницы</th>
         </tr>
         <h1>${state}</h1>
-        <c:forEach items="${myBooks}" var="book">
-            <tr>
-                <td><c:out value="${book.authorSurname}"/></td>
-                <td><c:out value="${book.authorName}"/></td>
-                <td><c:out value="${book.title}"/></td>
-                <td><c:out value="${book.publishYear}"/></td>
-                <td><c:out value="${book.pages}"/></td>
-            </tr>
-        </c:forEach>
     </table>
+    <c:forEach items="${myBooks}" var="book">
+        <tr>
+            <td><c:out value="${book.authorSurname}"/></td>
+            <td><c:out value="${book.authorName}"/></td>
+            <td><c:out value="${book.title}"/></td>
+            <td><c:out value="${book.publishYear}"/></td>
+            <td><c:out value="${book.pages}"/></td>
+        </tr>
+    </c:forEach>
     </body>
 </html>
