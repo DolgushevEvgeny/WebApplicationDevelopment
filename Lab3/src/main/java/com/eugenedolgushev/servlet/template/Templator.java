@@ -4,18 +4,18 @@ import com.eugenedolgushev.servlet.models.Book;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Logger;
 
 public class Templator {
-    private ArrayList<String> mParsedTemplate;
+    private List<String> mParsedTemplate;
     private static Logger log = Logger.getLogger(Templator.class.getName());
 
     public Templator(final String fileName) throws IOException {
-        //считать html файл в mParsedTemplate
-        //считывать теги в отдельные элементы
+
         mParsedTemplate = new ArrayList<String>();
         StringBuilder sb = new StringBuilder();
-        //File file = new File(fileName);
+
         try {
             BufferedReader in = new BufferedReader(new InputStreamReader(new FileInputStream(fileName), "UTF-8"));
             try {
@@ -55,7 +55,7 @@ public class Templator {
         mParsedTemplate.add(result);
     }
 
-    public final void setBooksByTag(final String tagName, ArrayList<Book> books) {
+    public final void setBooksByTag(final String tagName, List<Book> books) {
         StringBuilder allBooks = new StringBuilder();
         for (Book book : books) {
             allBooks.append(book.toHTML());

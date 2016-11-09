@@ -5,8 +5,8 @@ import com.eugenedolgushev.servlet.models.Books;
 import com.eugenedolgushev.servlet.template.Templator;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.io.PrintWriter;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -25,10 +25,12 @@ public class MainServlet extends HttpServlet {
 
     protected final void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
+        String templatePath = getServletContext().getRealPath("/WEB-INF/template.html");
+        
         response.setContentType("text/html;charset=utf-8");
-        ArrayList<Book> receivedBooks = this.books.getBooks();
+        List<Book> receivedBooks = this.books.getBooks();
 
-        Templator templator = new Templator("C:\\Users\\EugeneDolgushev\\IdeaProjects\\servlet_lab3\\src\\main\\java\\com\\eugenedolgushev\\servlet\\template\\template.html");
+        Templator templator = new Templator(templatePath);
         templator.setBooksByTag("myBooks", receivedBooks);
         if (request.getAttribute(SERVLETSTATE) != null) {
             templator.setValueByTag(SERVLETSTATE, (String)request.getAttribute(SERVLETSTATE));
@@ -39,9 +41,6 @@ public class MainServlet extends HttpServlet {
         PrintWriter writer = response.getWriter();
         writer.println(templator.getHTML());
         writer.close();
-//        writer(templator.getHTML());
-//        request.setAttribute("myBooks", receivedBooks);
-//        request.getRequestDispatcher("index.jsp").forward(request, response);
     }
 
     protected final void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

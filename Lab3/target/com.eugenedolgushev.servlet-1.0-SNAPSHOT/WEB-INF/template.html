@@ -1,0 +1,26 @@
+<html>
+    <head>
+        <title>Lab3</title>
+    </head>
+    <body>
+        <form method="post" action="Main">
+            <label>Фамилия</label><input name="surname" type="text"><br>
+            <label>Имя</label><input name="name" type="text"><br>
+            <label>Название книги</label><input name="bookTitle" type="text"><br>
+            <label>Год издания (гггг-мм-дд)</label><input name="publishYear" type="text"><br>
+            <label>Страницы</label><input name="pages" type="text"><br>
+            <input value="Отправить" type="submit">
+        </form>
+        <table>
+            <tr>
+                <th>Фамилия</th>
+                <th>Имя</th>
+                <th>Название книги</th>
+                <th>Год издания</th>
+                <th>Страницы</th>
+            </tr>
+            ${state}
+        ${myBooks}
+        </table>
+    </body>
+</html>

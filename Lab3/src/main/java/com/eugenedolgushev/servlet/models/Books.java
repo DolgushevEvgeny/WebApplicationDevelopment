@@ -8,6 +8,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.logging.Logger;
 
 public class Books {
@@ -80,9 +81,9 @@ public class Books {
         return SUCCESS_MESSAGE;
     }
 
-    public final ArrayList<Book> getBooks(){
+    public final List<Book> getBooks(){
         String query = "select id, surname, name, title, releaseDate, pages from books";
-        ArrayList<Book> books = new ArrayList<Book>();
+        List<Book> books = new ArrayList<Book>();
         ResultSet resultSet = null;
         Statement statement = null;
         try {
