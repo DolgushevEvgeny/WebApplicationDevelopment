@@ -71,11 +71,15 @@ public class Book {
 
     @NotNull
     public final Integer getPages(){
-//        try {
-//            return Integer.parseInt(this.bookPages);
-//        } catch(NumberFormatException e) {
-//        }
-        return this.bookPages;
+        try {
+            return Integer.parseInt(this.bookPages.toString());
+        } catch(NumberFormatException e) {
+            return 0;
+        } catch (NullPointerException e) {
+            return 0;
+        }
+
+        //return this.bookPages;
     }
 
     public final void setPages(final Integer thePages){

@@ -18,7 +18,9 @@ public class BookDAOImpl implements BookDAO {
     private static final Integer DATEINDEX = 5;
     private static final Integer PAGESINDEX = 6;
 
-    private static final String ERROR_UNCORRECTDATA = "Некорректные данные!";
+    private static final String ERROR_UNCORRECTDATA = "Ошибка: Некорректные данные!";
+    private static final String ERROR_UNCORRECTDATEDATA = "Ошибка: Некорректные данные при вводе даты!";
+    private static final String ERROR_UNCORRECTINTEGERDATA = "Ошибка: Некорректные данные при вводе числа!";
     private static final String SUCCESS_MESSAGE = "Книга успешно добавлена.";
 
     public BookDAOImpl(DataSource dataSource) {
@@ -27,7 +29,7 @@ public class BookDAOImpl implements BookDAO {
 
 //    public BookDAOImpl() {}
 
-    public void save(Book book) {
+    public final void save(Book book) {
         if (validate(book)){
             String sql = "INSERT INTO books (surname, name, title, releaseDate, pages)"
                     + " VALUES (?, ?, ?, ?, ?)";
@@ -43,11 +45,11 @@ public class BookDAOImpl implements BookDAO {
             return false;
         }
         if (book.getPublishYear() == null) {
-            status = ERROR_UNCORRECTDATA;
+            status = ERROR_UNCORRECTDATEDATA;
             return false;
         }
         if (book.getPages() < 2) {
-            status = ERROR_UNCORRECTDATA;
+            status = ERROR_UNCORRECTINTEGERDATA;
             return false;
         }
 
@@ -55,15 +57,15 @@ public class BookDAOImpl implements BookDAO {
         return true;
     }
 
-    public Book get(int bookId) {
+    public final Book get(int bookId) {
         return null;
     }
 
-    public String getStatus() {
+    public final String getStatus() {
         return this.status;
     }
 
-    public List<Book> list() {
+    public final List<Book> list() {
         String sql = "SELECT * FROM books";
         List<Book> listBook = jdbcTemplate.query(sql, new RowMapper<Book>() {
 

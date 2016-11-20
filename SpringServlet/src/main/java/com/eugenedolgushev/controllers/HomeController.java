@@ -23,7 +23,7 @@ public class HomeController {
     private BookDAO bookDAO;
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
-    public ModelAndView listBook(ModelAndView model) throws IOException {
+    public final ModelAndView listBook(ModelAndView model) throws IOException {
         List<Book> listBook = bookDAO.list();
         String status = bookDAO.getStatus();
         model.addObject("listBook", listBook);
@@ -34,7 +34,7 @@ public class HomeController {
     }
 
     @RequestMapping(value = "/newBook", method = RequestMethod.GET)
-    public ModelAndView newBook(ModelAndView model) {
+    public final ModelAndView newBook(ModelAndView model) {
         Book newBook = new Book();
         model.addObject("book", newBook);
         model.setViewName("newBook");
@@ -44,20 +44,17 @@ public class HomeController {
 
     @RequestMapping(value = "/saveBook", method = RequestMethod.POST)
     @ResponseBody
-    public ModelAndView saveBook(@ModelAttribute("book") Book book) {
+    public final ModelAndView saveBook(@ModelAttribute("book") Book book) {
         bookDAO.save(book);
         return new ModelAndView("redirect:/");
     }
 
     @InitBinder
-    public void initBinder(WebDataBinder binder) {
+    public final void initBinder(WebDataBinder binder) {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         sdf.setLenient(true);
         binder.registerCustomEditor(Date.class, new CustomDateEditor(sdf, true));
-    }
 
-    @InitBinder
-    public void binder(WebDataBinder binder) {
         NumberFormat numberFormat = NumberFormat.getInstance();
         numberFormat.setGroupingUsed(false);
         binder.registerCustomEditor(Integer.class, new CustomNumberEditor(Integer.class, numberFormat, true));

@@ -4,11 +4,11 @@ import java.util.List;
 
 public interface BookDAO {
 
-    public void save(Book book);
+    void save(Book book);
 
-    public Book get(int bookId);
+    Book get(int bookId);
 
-    public List<Book> list();
+    List<Book> list();
 
-    public String getStatus();
+    String getStatus();
 }
