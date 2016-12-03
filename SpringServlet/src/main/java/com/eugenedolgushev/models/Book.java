@@ -5,19 +5,16 @@ import com.sun.istack.internal.NotNull;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.logging.Logger;
 
 public class Book {
     private String authorSurname = "";
     private String authorName = "";
     private String title = "";
     private String publishYear = "";
-    //private String bookPages = "";
     private Integer bookPages = 0;
 
-    private static final String TABLEROWOPEN = "<tr>";
-    private static final String TABLEROWCLOSE = "</tr>";
-    private static final String TABLEDATAOPEN = "<td>";
-    private static final String TABLEDATACLOSE = "</td>";
+    private static Logger log = Logger.getLogger(Book.class.getName());
 
     public Book(){
     }
@@ -60,6 +57,7 @@ public class Book {
         try {
             return (new SimpleDateFormat("yyyy-MM-dd").parse(this.publishYear));
         } catch(ParseException e) {
+            log.severe(e.getMessage());
         }
 
         return null;
@@ -74,38 +72,15 @@ public class Book {
         try {
             return Integer.parseInt(this.bookPages.toString());
         } catch(NumberFormatException e) {
+            log.severe(e.getMessage());
             return 0;
         } catch (NullPointerException e) {
+            log.severe(e.getMessage());
             return 0;
         }
-
-        //return this.bookPages;
     }
 
     public final void setPages(final Integer thePages){
         this.bookPages = thePages;
-    }
-
-    @NotNull
-    public final String toHTML() {
-        StringBuilder result = new StringBuilder();
-        result.append(TABLEROWOPEN);
-        result.append(TABLEDATAOPEN);
-        result.append(this.authorSurname);
-        result.append(TABLEDATACLOSE);
-        result.append(TABLEDATAOPEN);
-        result.append(this.authorName);
-        result.append(TABLEDATACLOSE);
-        result.append(TABLEDATAOPEN);
-        result.append(this.title);
-        result.append(TABLEDATACLOSE);
-        result.append(TABLEDATAOPEN);
-        result.append(getPublishYear());
-        result.append(TABLEDATACLOSE);
-        result.append(TABLEDATAOPEN);
-        result.append(this.bookPages);
-        result.append(TABLEDATACLOSE);
-        result.append(TABLEROWCLOSE);
-        return result.toString();
     }
 }

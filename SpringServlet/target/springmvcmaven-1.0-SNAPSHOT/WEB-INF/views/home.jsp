@@ -16,6 +16,7 @@
         </span>
         <div align="center">
             <h1><a href="/newBook"><spring:message code="label.newBook"/></a></h1>
+            <h2><a href="/example"><spring:message code="label.downloadRemoteContent"/></a></h2>
             <table border="1">
                 <th><spring:message code="label.surname"/></th>
                 <th><spring:message code="label.name"/></th>

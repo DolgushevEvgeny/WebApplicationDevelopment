@@ -2,6 +2,7 @@ package com.eugenedolgushev.controllers;
 
 import com.eugenedolgushev.models.Book;
 import com.eugenedolgushev.models.BookDAO;
+import com.eugenedolgushev.util.Service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.beans.propertyeditors.CustomNumberEditor;
@@ -47,6 +48,14 @@ public class HomeController {
     public final ModelAndView saveBook(@ModelAttribute("book") Book book) {
         bookDAO.save(book);
         return new ModelAndView("redirect:/");
+    }
+
+    @RequestMapping(value = "/example", method = RequestMethod.GET)
+    public final ModelAndView showExample(ModelAndView model) {
+        String content = Service.readPage();
+        model.addObject("remoteContent", content);
+        model.setViewName("remote");
+        return model;
     }
 
     @InitBinder

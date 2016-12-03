@@ -3,6 +3,7 @@ package com.eugenedolgushev.models;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.logging.Logger;
 import javax.sql.DataSource;
 
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -23,11 +24,11 @@ public class BookDAOImpl implements BookDAO {
     private static final String ERROR_UNCORRECTINTEGERDATA = "Ошибка: Некорректные данные при вводе числа!";
     private static final String SUCCESS_MESSAGE = "Книга успешно добавлена.";
 
+    private static Logger log = Logger.getLogger(BookDAOImpl.class.getName());
+
     public BookDAOImpl(DataSource dataSource) {
         jdbcTemplate = new JdbcTemplate(dataSource);
     }
-
-//    public BookDAOImpl() {}
 
     public final void save(Book book) {
         if (validate(book)){
@@ -42,18 +43,22 @@ public class BookDAOImpl implements BookDAO {
         if (book.getAuthorSurname().trim().equals("") || book.getAuthorName().trim().equals("")
                 || book.getTitle().trim().equals("")) {
             status = ERROR_UNCORRECTDATA;
+            log.severe(ERROR_UNCORRECTDATA);
             return false;
         }
         if (book.getPublishYear() == null) {
             status = ERROR_UNCORRECTDATEDATA;
+            log.severe(ERROR_UNCORRECTDATEDATA);
             return false;
         }
         if (book.getPages() < 2) {
             status = ERROR_UNCORRECTINTEGERDATA;
+            log.severe(ERROR_UNCORRECTINTEGERDATA);
             return false;
         }
 
         status = SUCCESS_MESSAGE;
+        log.severe(SUCCESS_MESSAGE);
         return true;
     }
 
